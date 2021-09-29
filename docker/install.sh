@@ -8,7 +8,13 @@ if [ ! -r $dc_config_path ]; then
     exit 1
 fi
 
-DC="docker-compose -f $dc_config_path"
+sys="$(expr substr $(uname -s) 1 10)"
+
+if [ $sys == "MINGW32_NT" ] || [ $sys == "MINGW64_NT" ]; then
+    winpty="winpty"
+fi
+
+DC="$winpty docker-compose -f $dc_config_path"
 
 $DC down || /usr/bin/true
 $DC up -d --build
