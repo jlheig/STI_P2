@@ -19,3 +19,11 @@ Start the container(s)
 ```bash
 $ docker-compose up -d
 ```
+
+#### Available users
+
+| User      | Password    | Role     | Active |
+| --------- | ----------- | -------- | ------ |
+| root      | root        | admin    | yes    |
+| dany      | dany        | employee | yes    |
+| zebra     | zebra       | admin    | no     |
