@@ -20,7 +20,12 @@ $DC down || /usr/bin/true
 $DC up -d --build
 
 # start the services
-$DC exec sti_project service nginx start
-$DC exec sti_project service php5-fpm start
+$DC exec -T sti_project service nginx start
+$DC exec -T sti_project service php5-fpm start
 
-$DC exec sti_project chown -R www-data:www-data /usr/share/nginx/databases
+# make sure nginx user owner of the sqlite file
+$DC exec -T sti_project chown -R www-data:www-data /usr/share/nginx/databases
+
+# setup the database
+$DC exec -T sti_project sqlite3 /usr/share/nginx/databases/database.sqlite < ./docker/setup/init.sql
+$DC exec -T sti_project sqlite3 /usr/share/nginx/databases/database.sqlite < ./docker/setup/seed.sql
