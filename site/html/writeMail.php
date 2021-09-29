@@ -36,23 +36,25 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <section class="projects-section bg-light" id="login">
-                            <form action="/action_page.php" method="post">
+                        <div class="container projects-section bg-light">
+                            <form action="/action_page.php">
+                                <label for="email">To</label>
+                                <input type="email" id="email" name="email" placeholder="Email address..">
 
-                                    <label for="email"><b>Email address</b></label>
-                                    <input type="text" placeholder="Enter Email address" name="email" required>
+                                <label for="title">Title</label>
+                                <input type="text" id="title" name="title" placeholder="Your title..">
 
-                                    <label for="psw"><b>Password</b></label>
-                                    <input type="password" placeholder="Enter Password" name="psw" required>
-                                    
-                                    <input type="submit" value="Login">
+                                <label for="subject">Subject</label>
+                                <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+
+                                <input type="submit" value="Submit">
                             </form>
-                        </section>
+                        </div>
                     </div>
                 </div>
             </div>
         </header>
-    
+        
        
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2021</div></footer>

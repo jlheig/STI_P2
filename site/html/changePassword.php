@@ -36,23 +36,27 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
+                        <!-- TODO -->
                         <section class="projects-section bg-light" id="login">
                             <form action="/action_page.php" method="post">
-
-                                    <label for="email"><b>Email address</b></label>
-                                    <input type="text" placeholder="Enter Email address" name="email" required>
-
-                                    <label for="psw"><b>Password</b></label>
-                                    <input type="password" placeholder="Enter Password" name="psw" required>
-                                    
-                                    <input type="submit" value="Login">
+                                <div>
+                                    <label for="psw"><b>New password</b></label>
+                                    <input type="password" placeholder="Enter your new password" name="psw" required>
+                                </div>
+                                <div>
+                                    <label for="psw"><b>New password confirmation</b></label>
+                                    <input type="password" placeholder="Enter your new password" name="psw" required>
+                                </div>
+                                <div>      
+                                    <button type="submit">Change password</button>
+                                </div>
                             </form>
                         </section>
                     </div>
                 </div>
             </div>
         </header>
-    
+        
        
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2021</div></footer>

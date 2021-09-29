@@ -36,23 +36,12 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <section class="projects-section bg-light" id="login">
-                            <form action="/action_page.php" method="post">
-
-                                    <label for="email"><b>Email address</b></label>
-                                    <input type="text" placeholder="Enter Email address" name="email" required>
-
-                                    <label for="psw"><b>Password</b></label>
-                                    <input type="password" placeholder="Enter Password" name="psw" required>
-                                    
-                                    <input type="submit" value="Login">
-                            </form>
-                        </section>
+                        <!-- TODO -->
                     </div>
                 </div>
             </div>
         </header>
-    
+        
        
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2021</div></footer>
