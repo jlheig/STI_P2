@@ -23,20 +23,30 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <div class="container projects-section bg-light">
-                            <form action="/action_page.php">
-                                <label for="email">To</label>
-                                <input type="email" id="email" name="email" placeholder="Email address..">
+                        <!-- TODO -->
+                        <section class="projects-section bg-light" id="login">
+                            <form action="/action_page.php" method="post">
+                                <label for="email"><b>Email</b></label>
+                                <input type="email" value="john.doe@goggle.com" name="email" required readonly>
 
-                                <label for="title">Title</label>
-                                <input type="text" id="title" name="title" placeholder="Your title..">
+                                <label for="psw"><b>Password</b></label>
+                                <input type="password" value="p4ssw0rd" name="psw" required>
 
-                                <label for="text">Text</label>
-                                <textarea id="text" name="text" placeholder="Write something.."></textarea>
+                                <label for="state"><b>State</b></label>
+                                <select name="state" required>
+                                    <option selected value="online">Online</option>
+                                    <option value="offline">Offline</option>
+                                </select>
+    
+                                <label for="role"><b>Role</b></label>
+                                <select name="role" required>
+                                    <option selected value="user">User</option>
+                                    <option value="admin">Admin</option>
+                                </select>
 
-                                <input type="submit" value="Submit">
+                                <input type="submit" value="Change User">
                             </form>
-                        </div>
+                        </section>
                     </div>
                 </div>
             </div>

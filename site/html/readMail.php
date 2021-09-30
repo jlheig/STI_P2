@@ -17,26 +17,28 @@
     </head>
     <body id="page-top">
         <!-- Navigation-->
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand">Kayoumi Doran & Blanc Jean-Luc</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="login.php">Login</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <?php include 'nav.php' ?>
         <!-- Masthead-->
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <!-- TODO -->
+                        <div class="container projects-section bg-light">
+                            <h4>From</h4>
+                            <div class="infoReceived" id="email">John Doe</div>
+
+                            <h4>Date</h4>
+                            <div class="infoReceived" id="date">30.09.2021</div>
+
+                            <h4>Title</h4>
+                            <div class="infoReceived" id="title">Hello, World!</div>
+
+                            <h4>Text</h4>
+                            <div class="infoReceived" id="text">Tagada Tsoin Tsoin yeepee yaaaa</div>
+                            <form action="mailbox.php">
+                                <input type="submit" value="Close">
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
