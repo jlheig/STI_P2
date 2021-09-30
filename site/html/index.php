@@ -3,6 +3,8 @@
     ini_set('display_errors', 1);
     error_reporting(-1);
 
+    session_start();
+
     if (!empty($_POST)) {
         // Create (connect to) SQLite database in file
         $db = new PDO('sqlite:/usr/share/nginx/databases/database.sqlite');
@@ -18,7 +20,10 @@
             // check if the correct password was given
             if (md5($_POST['password']) == $result[0]['password']) { 
                 // success! redirect to mail box
-                // TODO redirect
+                $_SESSION['id']         = $result[0]['id'];
+                $_SESSION['username']   = $result[0]['username'];
+                header("Location: mailbox.php");
+                exit();
             } else {
                 // password mismatch :sadcat:
                 $errors = "Wrong password";
