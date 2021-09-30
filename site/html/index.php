@@ -1,3 +1,39 @@
+<?php
+    ini_set('display_startup_errors', 1);
+    ini_set('display_errors', 1);
+    error_reporting(-1);
+
+    session_start();
+
+    if (!empty($_POST)) {
+        // Create (connect to) SQLite database in file
+        $db = new PDO('sqlite:/usr/share/nginx/databases/database.sqlite');
+        // Set errormode to exceptions
+        $db->setAttribute(PDO::ATTR_ERRMODE, 
+                            PDO::ERRMODE_EXCEPTION);
+
+        // find the user from the database
+        $result = $db->query("SELECT * FROM users WHERE username = '{$_POST['username']}'")->fetchAll();
+
+        // check if the user exists
+        if (count($result) > 0) {            
+            // check if the correct password was given
+            if (md5($_POST['password']) == $result[0]['password']) { 
+                // success! redirect to mail box
+                $_SESSION['id']         = $result[0]['id'];
+                $_SESSION['username']   = $result[0]['username'];
+                header("Location: mailbox.php");
+                exit();
+            } else {
+                // password mismatch :sadcat:
+                $errors = "Wrong password";
+            }
+        } else {
+            // nope, display an error
+            $errors = "User {$_POST['username']} doesn't exist";
+        }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -36,13 +72,30 @@
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">STI</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5">Welcome on our page for the STI Project 1 !</h2>
+                        <section class="projects-section bg-light" id="login">
+                            <?php if (!empty($errors)) echo $errors; ?>
+                            <form action="/index.php" method="post">
+                                <div>
+                                    <label for="username"><b>Username</b></label>
+                                    <input type="text" placeholder="Enter Username" name="username" required>
+                                </div>
+                                <div>
+                                    <label for="password"><b>Password</b></label>
+                                    <input type="password" placeholder="Enter Password" name="password" required>
+                                </div>
+                                <div>      
+                                    <button type="submit">Login</button>
+                                </div>
+                                <div>
+                                    <span class="psw">Forgot <a href="#">password?</a></span>
+                                </div>
+                            </form>
+                        </section>
                     </div>
                 </div>
             </div>
         </header>
-        
+    
        
         <!-- Footer-->
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Your Website 2021</div></footer>
