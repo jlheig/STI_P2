@@ -2,18 +2,15 @@
     ini_set('display_startup_errors', 1);
     ini_set('display_errors', 1);
     error_reporting(-1);
+    require_once('database.php');
 
     session_start();
 
     if (!empty($_POST)) {
-        // Create (connect to) SQLite database in file
-        $db = new PDO('sqlite:/usr/share/nginx/databases/database.sqlite');
-        // Set errormode to exceptions
-        $db->setAttribute(PDO::ATTR_ERRMODE, 
-                            PDO::ERRMODE_EXCEPTION);
+        $db = new Database();
 
         // find the user from the database
-        $result = $db->query("SELECT * FROM users WHERE username = '{$_POST['username']}'")->fetchAll();
+        $result = $db->find_user_by_username($_POST['username']);
 
         // check if the user exists
         if (count($result) > 0) {            
