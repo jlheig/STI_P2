@@ -3,7 +3,11 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
 
+session_start();
+
 require_once('database.php');
+
+use Messenger\Database;
 
 $db = new Database();
 
@@ -16,8 +20,6 @@ if(isset($_GET['id_delete'])) {
     $db->delete_email_by_id($id_delete);
     header( "Location: mailbox.php" );
 }
-    
-session_start();
 
 require_once('includes/header.php');
 ?>

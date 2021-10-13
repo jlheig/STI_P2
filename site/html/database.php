@@ -1,5 +1,8 @@
 <?php
 
+namespace Messenger;
+
+use PDO;
 
 class Database {
 

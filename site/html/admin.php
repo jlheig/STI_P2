@@ -1,5 +1,12 @@
 <?php
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+
 session_start();
+
+use Messenger\Authorization;
+use Messenger\Database;
 
 require_once('database.php');
 require_once('authorization.php');
@@ -9,7 +16,6 @@ $db = new Database();
 
 require_once('includes/header.php');
 ?>
-
 
 <!-- Navigation-->
 <?php include 'includes/nav.php' ?>

@@ -1,4 +1,5 @@
 <?php
+namespace Messenger;
 require_once('database.php');
 
 class Authorization {
@@ -11,7 +12,7 @@ class Authorization {
     }
 
     public static function access($role = self::EMPLOYEE) {
-        if (!self::checkSession()) 
+        if (!self::checkSession())
             self::redirect();
 
         $user = (new Database())->find_user_by_id($_SESSION['id']);

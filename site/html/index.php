@@ -1,11 +1,19 @@
 <?php
+ini_set('display_startup_errors', 1);
+ini_set('display_errors', 1);
+error_reporting(-1);
+
 require_once('database.php');
 require_once('authorization.php');
 
-if (Authorization::checkSession()) 
-    Authorization::redirect('mailbox.php');
+use Messenger\Authorization;
+use Messenger\Database;
 
 session_start();
+
+if (Authorization::checkSession())
+    Authorization::redirect('mailbox.php');
+
 if (!empty($_POST)) {
     $db = new Database();
 
@@ -13,50 +21,58 @@ if (!empty($_POST)) {
     $result = $db->find_user_by_username($_POST['username']);
 
     // check if the user exists
-    if (count($result) > 0) {            
+    if (count($result) > 0) {
         // check if the correct password was given
-        if (md5($_POST['password']) == $result[0]['password']) { 
+        if (md5($_POST['password']) == $result[0]['password']) {
             // success! redirect to mail box
-            $_SESSION['id']         = $result[0]['id'];
+            $_SESSION['id'] = $result[0]['id'];
             Authorization::redirect('mailbox.php');
         } else {
             // password mismatch :sadcat:
             $errors = "Wrong password";
         }
     } else {
-        // nope, display an error
+        // nope, new error
         $errors = "User {$_POST['username']} doesn't exist";
     }
 }
+
 require_once('includes/header.php');
+require_once('includes/nav.php');
 ?>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-6 login-section-wrapper">
-            <div class="brand-wrapper">
-                <span>Secure Messenger</span>
-            </div>
-            <div class="login-wrapper my-auto">
-                <h1 class="login-title">Log in</h1>
-                <form action="/index.php" method="post">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" name="username" id="username" class="form-control" placeholder="johnsnow">
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="password">Password</label>
-                        <input type="password" name="password" id="password" class="form-control" placeholder="enter your passsword">
-                    </div>
-                    <input name="login" id="login" class="btn btn-block login-btn" type="submit" value="Login"/>
-                </form>
-            </div>
-        </div>
-        <div class="col-sm-6 px-0 d-none d-sm-block">
-            <img src="assets/img/login.jpg" alt="login image" class="login-img">
-        </div>
-    </div>
-</div>
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong">
+          <div class="card-body p-5">
 
+            <h3 class="mb-5">Sign in</h3>
+            <?php if (!empty($errors)): ?>
+            <?= $errors ?>
+            <?php endif; ?>
+            <form action="index.php" method="post">
+                <div class="form-outline mb-4">
+                <input name="username" type="text" id="username" class="form-control form-control-lg" />
+                <label class="form-label" for="username">Username</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                <input name="password" type="password" id="password" class="form-control form-control-lg" />
+                <label class="form-label" for="password">Password</label>
+                </div>
+
+                <button name="login" class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
+            </form>
+            <hr class="my-4">
+
+            Register
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 <?php
 require_once('includes/footer.php');
