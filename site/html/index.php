@@ -50,24 +50,30 @@ require_once('includes/nav.php');
 
             <h3 class="mb-5">Sign in</h3>
             <?php if (!empty($errors)): ?>
-            <?= $errors ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $errors ?>
+            </div>
+            <?php endif; ?>
+            <?php if (!empty($_GET['success'])): ?>
+              <div class="alert alert-success" role="alert">
+                  Your account was successfully created!
+              </div>
             <?php endif; ?>
             <form action="index.php" method="post">
                 <div class="form-outline mb-4">
-                <input name="username" type="text" id="username" class="form-control form-control-lg" />
-                <label class="form-label" for="username">Username</label>
+                    <input name="username" type="text" id="username" class="form-control form-control-lg" />
+                    <label class="form-label" for="username">Username</label>
                 </div>
 
                 <div class="form-outline mb-4">
-                <input name="password" type="password" id="password" class="form-control form-control-lg" />
-                <label class="form-label" for="password">Password</label>
+                    <input name="password" type="password" id="password" class="form-control form-control-lg" />
+                    <label class="form-label" for="password">Password</label>
                 </div>
 
                 <button name="login" class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
             </form>
             <hr class="my-4">
-
-            Register
+            <p class="mb-0">Don't have an account? <a href="register.php" class="text-dark fw-bold">Sign Up</a></p>
           </div>
         </div>
       </div>

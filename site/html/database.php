@@ -28,6 +28,10 @@ class Database {
         return $this->conn->query("SELECT * FROM users")->fetchAll();
     }
 
+    public function create_user($username, $passwd, $role) {
+        $this->conn->exec("INSERT INTO users (username, password, role) VALUES ('$username', '$passwd', '$role')");
+    }
+
     public function send_email($sender, $receiver, $subject, $message, $received_date) {
         return $this->conn->query("INSERT INTO emails (sender, receiver, subject, message, received_date) VALUES ('$sender', '$receiver', '$subject', '$message', '$received_date')");
     }
