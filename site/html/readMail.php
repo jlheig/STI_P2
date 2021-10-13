@@ -28,7 +28,7 @@ require_once('includes/header.php');
             <div class="text-center">
                 <div class="container projects-section bg-light">
                     <h4>From</h4>
-                    <div class="infoReceived" id="email"><?php if(isset($from)) { echo $from; } ?></div>
+                    <div class="infoReceived" id="username"><?php if(isset($from)) { echo $from; } ?></div>
 
                     <h4>Date</h4>
                     <div class="infoReceived" id="date"><?php if(isset($date)) { echo $date; } ?></div>

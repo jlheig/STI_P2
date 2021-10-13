@@ -7,7 +7,7 @@ require_once('database.php');
 
 $db = new Database();
 
-$login = "test@gmail.qr";
+$login = "test";
 $receiver = $login;
 $result = $db->find_emails_by_receiver($receiver);
 

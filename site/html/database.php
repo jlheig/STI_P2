@@ -41,4 +41,12 @@ class Database {
     public function delete_email_by_id($id) {
         return $this->conn->query("DELETE FROM emails WHERE id = '{$id}'")->fetchAll();
     }
+
+    public function update_user_by_id($id, $username, $role, $state){
+        return $this->conn->query("UPDATE users SET username='$username', role='$role', active='$state' WHERE id = '{$id}'");
+    }
+
+    public function update_password_by_id($id, $password){
+        return $this->conn->query("UPDATE users SET password='$password' WHERE id = '{$id}'");
+    }
 }
