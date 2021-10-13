@@ -6,6 +6,8 @@ require_once('database.php');
 
 session_start();
 
+use Messenger\Database;
+
 $db = new Database();
 
 //if we have an id specified, then we read the email relateed to it

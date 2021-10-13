@@ -6,6 +6,8 @@
 
     session_start();
 
+    use Messenger\Database;
+
     $db = new Database();
 
 
