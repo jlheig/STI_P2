@@ -1,3 +1,29 @@
+<?php
+    ini_set('display_startup_errors', 1);
+    ini_set('display_errors', 1);
+    error_reporting(-1);
+    require_once('database.php');
+
+    session_start();
+
+    $db = new Database();
+
+
+    //if we sent an email
+    if( isset($_GET["email"]) && isset($_GET["title"]) && isset($_GET["text"]) )
+    {
+        //get our values
+        $login = "test";
+        $sender = $login;
+        $receiver = $_GET["email"];
+        $subject = $_GET["title"];
+        $message = $_GET["text"];
+        $received_date = date("d-m-Y H:i:s");
+
+        //send the mail
+        $db->send_email($sender, $receiver, $subject, $message, $received_date);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,12 +50,12 @@
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
                         <div class="container projects-section bg-light">
-                            <form action="/action_page.php">
+                            <form action="/writeMail.php" method="GET">
                                 <label for="email">To</label>
-                                <input type="email" id="email" name="email" placeholder="Email address..">
+                                <input type="email" id="email" name="email" placeholder="Email address.." value="<?php echo isset($_GET['name']) ? htmlspecialchars($_GET['name']) : ''; ?>">
 
                                 <label for="title">Title</label>
-                                <input type="text" id="title" name="title" placeholder="Your title..">
+                                <input type="text" id="title" name="title" placeholder="Your title.." value="<?php echo isset($_GET['subject']) ? htmlspecialchars($_GET['subject']) : ''; ?>">
 
                                 <label for="text">Text</label>
                                 <textarea id="text" name="text" placeholder="Write something.."></textarea>
