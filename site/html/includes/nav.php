@@ -8,10 +8,10 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="index.php">Login</a></li>
-            <li class="nav-item"><a class="nav-link" href="mailbox.php">Mail Box</a></li>
-            <li class="nav-item"><a class="nav-link" href="admin.php">Admin Panel</a></li>
-            <li class="nav-item"><a class="nav-link" href="writeMail.php">Write Email</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.php">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="mailbox.php">Mail Box</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin.php">Admin Panel</a></li>
+                <li class="nav-item"><a class="nav-link" href="writeMail.php">Write Email</a></li>
             </ul>
         </div>
     </div>
