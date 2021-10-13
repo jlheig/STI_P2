@@ -28,7 +28,7 @@ require_once('includes/header.php');
                     <input type="submit" value="Add User">
                     <table>
                         <tr>
-                            <th>Email</th>
+                            <th>Username</th>
                             <th>Password</th>
                             <th>State</th>
                             <th>Role</th>
