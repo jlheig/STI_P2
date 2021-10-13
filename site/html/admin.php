@@ -25,7 +25,6 @@ require_once('includes/header.php');
         <div class="d-flex justify-content-center">
             <div class="text-center">
                 <section class="projects-section bg-light" id="login">
-                    <input type="submit" value="Add User">
                     <table>
                         <tr>
                             <th>Username</th>
@@ -41,12 +40,8 @@ require_once('includes/header.php');
                             <td><?= $user['active'] == '1' ? 'Active' : 'Inactive' ?></td>
                             <td><?= $user['role'] ?></td>
                             <td>
-                                <a href="">Delete</a> 
-                                        <a href="">Delete</a> 
-                                <a href="">Delete</a> 
-                                <a href="modifyUser.php">Modify</a> 
-                                        <a href="modifyUser.php">Modify</a> 
-                                <a href="modifyUser.php">Modify</a> 
+                                <a href="">Delete</a>
+                                <a href="modifyUser.php">Modify</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
