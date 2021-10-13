@@ -11,21 +11,22 @@ fi
 sys="$(expr substr $(uname -s) 1 10)"
 
 if [ $sys == "MINGW32_NT" ] || [ $sys == "MINGW64_NT" ]; then
-    winpty="winpty"
+    winpty="winpty "
 fi
 
-DC="$winpty docker-compose -f $dc_config_path"
+DC="docker-compose -f $dc_config_path"
 
-$DC down || /usr/bin/true
-$DC up -d --build
+$winpty $DC down || /usr/bin/true
+$winpty $DC up -d --build
 
 # start the services
-$DC exec -T sti_project service nginx start
-$DC exec -T sti_project service php5-fpm start
+$winpty $DC exec -T sti_project service nginx start
+$winpty $DC exec -T sti_project service php5-fpm start
 
 # make sure nginx user owner of the sqlite file
-$DC exec -T sti_project chown -R www-data:www-data /usr/share/nginx/databases
+
+$winpty $DC exec -T sti_project chown -R www-data:www-data ./usr/share/nginx/databases
 
 # setup the database
-$DC exec -T sti_project sqlite3 /usr/share/nginx/databases/database.sqlite < ./docker/setup/init.sql
-$DC exec -T sti_project sqlite3 /usr/share/nginx/databases/database.sqlite < ./docker/setup/seed.sql
+$DC exec -T sti_project sqlite3 ./usr/share/nginx/databases/database.sqlite < ./docker/setup/init.sql
+$DC exec -T sti_project sqlite3 ./usr/share/nginx/databases/database.sqlite < ./docker/setup/seed.sql
