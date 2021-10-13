@@ -3,39 +3,42 @@
 
 class Database {
 
-    private $db;
+    private $conn;
     
     function __construct() {
-        var_dump('waaaaaaaaaat');
         // Create (connect to) SQLite database in file
-        $this->db = new PDO('sqlite:/usr/share/nginx/databases/database.sqlite');
+        $this->conn = new PDO('sqlite:/usr/share/nginx/databases/database.sqlite');
         // Set errormode to exceptions
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, 
+        $this->conn->setAttribute(PDO::ATTR_ERRMODE, 
                             PDO::ERRMODE_EXCEPTION);
     }
 
     public function find_user_by_id($id) {
-        return $this->db->query("SELECT * FROM users WHERE id = '{$id}'")->fetchAll();
+        return $this->conn->query("SELECT * FROM users WHERE id = '{$id}'")->fetchAll()[0];
     }
 
     public function find_user_by_username($username) {
-        return $this->db->query("SELECT * FROM users WHERE username = '{$username}'")->fetchAll();
+        return $this->conn->query("SELECT * FROM users WHERE username = '{$username}'")->fetchAll();
+    }
+
+    public function get_users() {
+        return $this->conn->query("SELECT * FROM users")->fetchAll();
     }
 
     public function send_email($sender, $receiver, $subject, $message, $received_date) {
-        return $this->db->query("INSERT INTO emails (sender, receiver, subject, message, received_date) VALUES ('$sender', '$receiver', '$subject', '$message', '$received_date')");
+        return $this->conn->query("INSERT INTO emails (sender, receiver, subject, message, received_date) VALUES ('$sender', '$receiver', '$subject', '$message', '$received_date')");
     }
 
     public function find_email_by_id($id) {
-        return $this->db->query("SELECT * FROM emails WHERE id = '{$id}'")->fetchAll();
+        return $this->conn->query("SELECT * FROM emails WHERE id = '{$id}'")->fetchAll();
     }
 
     public function find_emails_by_receiver($receiver) {
-        return $this->db->query("SELECT * FROM emails WHERE receiver = '{$receiver}'")->fetchAll();
+        return $this->conn->query("SELECT * FROM emails WHERE receiver = '{$receiver}'")->fetchAll();
 
     }
 
     public function delete_email_by_id($id) {
-        return $this->db->query("DELETE FROM emails WHERE id = '{$id}'")->fetchAll();
+        return $this->conn->query("DELETE FROM emails WHERE id = '{$id}'")->fetchAll();
     }
 }

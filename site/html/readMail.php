@@ -37,7 +37,7 @@
     </head>
     <body id="page-top">
         <!-- Navigation-->
-        <?php include 'nav.php' ?>
+        <?php include 'includes/nav.php' ?>
         <!-- Masthead-->
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
