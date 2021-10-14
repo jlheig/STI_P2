@@ -12,7 +12,7 @@ use Messenger\Database;
 session_start();
 
 if (Authorization::checkSession())
-    Authorization::redirect('mailbox.php');
+    Authorization::redirect('inbox.php');
 
 if (!empty($_POST)) {
     $db = new Database();
@@ -36,48 +36,61 @@ if (!empty($_POST)) {
 }
 
 require_once('includes/header.php');
-require_once('includes/nav.php');
 ?>
 
-<section class="vh-100 gradient-custom">
-    <div class="container py-5 h-100">
-        <div class="row justify-content-center align-items-center h-100">
-            <div class="col-12 col-lg-9 col-xl-7">
-                <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
-                    <div class="card-body p-4 p-md-5">
-                        <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
-                        <?php if (!empty($errors)): ?>
+<div class="container">
+<div class="row align-items-center justify-content-center min-vh-100 gx-0">
+
+    <div class="col-12 col-md-5 col-lg-4">
+        <div class="card card-shadow border-0">
+            <div class="card-body">
+                <form class="row g-6" method="post" action="register.php">
+                    <div class="col-12">
+                        <div class="text-center">
+                            <h3 class="fw-bold mb-2">Sign Up</h3>
+                            <p>Follow the easy steps</p>
+                        </div>
+                    </div>
+                    <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger" role="alert">
                             <?= $errors ?>
                         </div>
-                        <?php endif; ?>
-                        <form action="register.php" method="post">
-                            <div class="form-outline mb-4">
-                                <input name="username" type="text" id="username" class="form-control form-control-lg" />
-                                <label class="form-label" for="username">Username</label>
-                            </div>
-
-                            <div class="form-outline mb-4">
-                                <input name="password" type="password" id="password" class="form-control form-control-lg" />
-                                <label class="form-label" for="password">Password</label>
-                            </div>
-                            <div class="form-outline mb-4">
-                                <input name="confirm" type="password" id="confirm" class="form-control form-control-lg" />
-                                <label class="form-label" for="confirm">Confirm Password</label>
-                            </div>
-                            <input type="hidden" name="role" value="<?= Authorization::EMPLOYEE ?>">
-                            <div class="mt-4 pt-2">
-                                <button name="register" class="btn btn-primary btn-lg" type="submit">Register</button>
-                            </div>
-                        </form>
-                        <hr class="my-4">
-                        <p class="mb-0">Already have an account? <a href="index.php" class="text-dark fw-bold">Sign in</a></p>
+                    <?php endif; ?>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input name="username" type="text" class="form-control" id="username" placeholder="Username">
+                            <label for="username">Username</label>
+                        </div>
                     </div>
-                </div>
+
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input name="password" type="password" class="form-control" id="password" placeholder="Password">
+                            <label for="password">Password</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input name="confirm" type="password" class="form-control" id="confirm" placeholder="Confirm Password">
+                            <label for="confirm">Confirm Password</label>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                        <button class="btn btn-block btn-lg btn-primary w-100" type="submit">Create Account</button>
+                    </div>
+                </form>
             </div>
         </div>
-    </div>
-</section>
 
+        <!-- Text -->
+        <div class="text-center mt-8">
+            <p>Already have an account? <a href="index.php">Sign in</a></p>
+        </div>
+
+    </div>
+</div> <!-- / .row -->
+</div>
 <?php
 require_once('includes/footer.php');

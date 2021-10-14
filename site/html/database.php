@@ -42,7 +42,14 @@ class Database {
 
     public function find_emails_by_receiver($receiver) {
         return $this->conn->query("SELECT * FROM emails WHERE receiver = '{$receiver}'")->fetchAll();
+    }
 
+    public function get_user_conversations($userId) {
+        return $this->conn->query("SELECT * FROM emails WHERE receiver = {$userId} or sender = {$userId}")->fetchAll();
+    }
+
+    public function get_conversation($receiver, $sender) {
+        return $this->conn->query("SELECT * FROM emails WHERE (sender = {$sender} and receiver = {$receiver}) or sender = {$receiver} and receiver = {$sender};")->fetchAll();
     }
 
     public function delete_email_by_id($id) {
