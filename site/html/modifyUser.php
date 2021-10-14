@@ -4,8 +4,10 @@ ini_set('display_startup_errors', 1);
 ini_set('display_errors', 1);
 error_reporting(-1);
 
+session_start();
+
 require_once('database.php');
-require_once('authorization.php')
+require_once('authorization.php');
 
 use Messenger\Database;
 use Messenger\Authorization;
@@ -47,8 +49,6 @@ if(isset($_POST["pwd"]) && $_POST["pwd"] != ""){
     $m_pwd = md5($m_pwd);
     $db->update_password_by_id($id_user, $m_pwd);
 }
-
-session_start();
 
 require_once('includes/header.php');
 ?>
