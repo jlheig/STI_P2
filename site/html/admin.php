@@ -11,7 +11,8 @@ use Messenger\Database;
 require_once('database.php');
 require_once('authorization.php');
 
-Authorization::access(Authorization::ADMIN);
+if (!Authorization::access(Authorization::ADMIN))
+    Authorization::redirect();
 $db = new Database();
 
 require_once('includes/header.php');

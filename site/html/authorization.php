@@ -13,12 +13,14 @@ class Authorization {
 
     public static function access($role = self::EMPLOYEE) {
         if (!self::checkSession())
-            self::redirect();
+            return false;
 
         $user = (new Database())->find_user_by_id($_SESSION['id']);
         
-        if ($user['role'] != $role || $user['role'] != self::ADMIN) 
-            self::redirect();
+        if ($user['role'] != $role || $user['role'] != self::ADMIN)
+            return false;
+
+        return true;
     }
 
     public static function redirect($target = 'index.php') {
