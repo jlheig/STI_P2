@@ -11,9 +11,12 @@ require_once('authorization.php');
 use Messenger\Database;
 use Messenger\Authorization;
 
+if (!Authorization::access())
+    Authorization::redirect();
+
 $db = new Database();
 
-$messages = $db->find_emails_by_receiver($_SESSION['id']);
+$messages = $db->get_user_conversations($_SESSION['id']);
 
 if(isset($_GET['id_delete'])) {
     $id_delete = $_GET['id_delete'];
@@ -44,14 +47,14 @@ require_once('includes/header.php');
                             <?php if (count($messages) <= 0):?>
                             No emails
                             <?php else: ?>
-                            <?php foreach ($db->find_emails_by_receiver($_SESSION['id']) as $message): ?>
+                            <?php foreach ($messages as $message): ?>
                             <!-- Card -->
-                            <a href="inbox.php?sender=<?= $message['sender'] ?>" class="card border-0 text-reset">
+                            <a href="inbox.php?parent=<?= $message['id'] ?>" class="card border-0 text-reset">
                                 <div class="card-body">
                                     <div class="row gx-5">
                                         <div class="col">
                                             <div class="d-flex align-items-center mb-3">
-                                                <h5 class="me-auto mb-0"><?= $db->find_user_by_id($message['sender'])['username'] ?></h5>
+                                                <h5 class="me-auto mb-0"><?= $db->find_user_by_id($message['sender'] == $_SESSION['id'] ? $message['receiver'] : $message['sender'])['username'] ?></h5>
                                                 <span class="text-muted extra-small ms-2"><?= $message['received_date'] ?></span>
                                             </div>
 
@@ -76,17 +79,18 @@ require_once('includes/header.php');
 </aside>
 
 <?php
-if(isset($_GET["sender"])):
+if(isset($_GET["parent"])):
 
-$sender = $db->find_user_by_id($_GET['sender']);
-if ($sender == null)
+$convo = $db->get_conversation($_GET['parent']);
+
+if (empty($convo)) {
     Authorization::redirect('inbox.php?=unknownuser=1');
-
-
-$convo = $db->get_conversation($_SESSION['id'], $_GET['sender']);
+}
+$senderid = $convo[0]['sender'] == $_SESSION['id'] ? $convo[0]['receiver'] : $convo[0]['sender'];
+$sender = $db->find_user_by_id($senderid);
 ?>
 
-<main class="main is-visible" data-dropzone-area="">
+<main class="main is-visible">
     <div class="container-fluid h-100">
 
         <div class="d-flex flex-column h-100 position-relative">
@@ -127,7 +131,7 @@ $convo = $db->get_conversation($_SESSION['id'], $_GET['sender']);
                                         <?php if ($message['sender'] == $_SESSION['id']): ?>
                                         <div class="message-action">
                                             <div class="dropdown">
-                                                <a class="dropdown-item d-flex align-items-center text-danger" href="#">
+                                                <a class="dropdown-item d-flex align-items-center text-danger" href="delete.php?id=<?= $message['id'] ?>">
                                                     <div class="icon">
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
                                                     </div>
@@ -153,10 +157,11 @@ $convo = $db->get_conversation($_SESSION['id'], $_GET['sender']);
             <div class="chat-footer pb-3 pb-lg-7 position-absolute bottom-0 start-0">
 
                 <!-- Chat: Form -->
-                <form class="chat-form rounded-pill bg-dark" method="post" action="compose.php">
+                <form class="chat-form rounded-pill bg-dark" method="post" action="send.php">
                     <div class="row align-items-center gx-0">
                         <input type="hidden" name="receiver" value="<?= $sender['id'] ?>"/>
                         <input type="hidden" name="subject" value="<?= $convo[0]['subject'] ?>" />
+                        <input type="hidden" name="parent" value="<?= $convo[0]['id'] ?>" />
                         <div class="col">
                             <div class="input-group">
                                 <textarea name="message" class="form-control px-0" placeholder="Type your message..." rows="1" data-emoji-input="" data-autosize="true" style="margin-left: 20px; overflow: hidden; overflow-wrap: break-word; resize: none; height: 47px;"></textarea>

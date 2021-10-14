@@ -15,6 +15,7 @@ CREATE TABLE emails(
     subject         TEXT NOT NULL,
     message         TEXT NOT NULL,
     received_date   TEXT NOT NULL,
+    parent_email    INTEGER NULL,
 
     FOREIGN KEY (sender)
         REFERENCES users (id)
@@ -23,5 +24,9 @@ CREATE TABLE emails(
     FOREIGN KEY (receiver)
         REFERENCES users (id)
             ON DELETE CASCADE 
-            ON UPDATE NO ACTION
+            ON UPDATE NO ACTION,
+    FOREIGN KEY (parent_email)
+        REFERENCES emails (id)
+        ON DELETE CASCADE
+        ON UPDATE NO ACTION
 );

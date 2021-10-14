@@ -32,12 +32,12 @@ class Database {
         $this->conn->exec("INSERT INTO users (username, password, role) VALUES ('$username', '$passwd', '$role')");
     }
 
-    public function send_email($sender, $receiver, $subject, $message, $received_date) {
-        return $this->conn->exec("INSERT INTO emails (sender, receiver, subject, message, received_date) VALUES ('$sender', '$receiver', '$subject', '$message', '$received_date')");
+    public function send_email($sender, $receiver, $subject, $message, $received_date, $parent) {
+        return $this->conn->exec("INSERT INTO emails (sender, receiver, subject, message, received_date, parent_email) VALUES ('$sender', '$receiver', '$subject', '$message', '$received_date', '$parent')");
     }
 
     public function find_email_by_id($id) {
-        return $this->conn->query("SELECT * FROM emails WHERE id = '{$id}'")->fetchAll();
+        return $this->conn->query("SELECT * FROM emails WHERE id = '{$id}'")->fetchAll()[0];
     }
 
     public function find_emails_by_receiver($receiver) {
@@ -45,11 +45,11 @@ class Database {
     }
 
     public function get_user_conversations($userId) {
-        return $this->conn->query("SELECT * FROM emails WHERE receiver = {$userId} or sender = {$userId}")->fetchAll();
+        return $this->conn->query("SELECT * FROM emails WHERE (receiver = {$userId} or sender = {$userId}) and (parent_email is null or parent_email = '')")->fetchAll();
     }
 
-    public function get_conversation($receiver, $sender) {
-        return $this->conn->query("SELECT * FROM emails WHERE (sender = {$sender} and receiver = {$receiver}) or sender = {$receiver} and receiver = {$sender};")->fetchAll();
+    public function get_conversation($parent) {
+        return $this->conn->query("SELECT * FROM emails WHERE parent_email = {$parent} or id = {$parent}")->fetchAll();
     }
 
     public function delete_email_by_id($id) {
