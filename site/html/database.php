@@ -33,7 +33,7 @@ class Database {
     }
 
     public function send_email($sender, $receiver, $subject, $message, $received_date) {
-        return $this->conn->query("INSERT INTO emails (sender, receiver, subject, message, received_date) VALUES ('$sender', '$receiver', '$subject', '$message', '$received_date')");
+        return $this->conn->exec("INSERT INTO emails (sender, receiver, subject, message, received_date) VALUES ('$sender', '$receiver', '$subject', '$message', '$received_date')");
     }
 
     public function find_email_by_id($id) {
@@ -54,6 +54,6 @@ class Database {
     }
 
     public function update_password_by_id($id, $password){
-        return $this->conn->query("UPDATE users SET password='$password' WHERE id = '{$id}'");
+        return $this->conn->exec("UPDATE users SET password='$password' WHERE id = '{$id}'");
     }
 }

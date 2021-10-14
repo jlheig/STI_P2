@@ -16,8 +16,8 @@ class Authorization {
             return false;
 
         $user = (new Database())->find_user_by_id($_SESSION['id']);
-        
-        if ($user['role'] != $role || $user['role'] != self::ADMIN)
+
+        if ($user['role'] != $role && $user['role'] != self::ADMIN)
             return false;
 
         return true;

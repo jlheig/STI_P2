@@ -1,11 +1,10 @@
 <?php
-require_once('database.php');
 require_once('authorization.php');
 
 use Messenger\Authorization;
 ?>
 <!-- Navigation-->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
     <div class="container px-4 px-lg-5">
         <a class="navbar-brand">Secure Messenger</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
@@ -18,6 +17,7 @@ use Messenger\Authorization;
                     <?php if (Authorization::access(Authorization::ADMIN)): ?>
                         <li class="nav-item"><a class="nav-link" href="admin.php">Admin Panel</a></li>
                     <?php endif; ?>
+                    <li class="nav-item"><a href="profile.php" class="nav-link">Profile</a></li>
                 <?php endif; ?>
             </ul>
         </div>

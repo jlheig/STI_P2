@@ -6,6 +6,8 @@ error_reporting(-1);
 
 require_once('database.php');
 
+use Messenger\Database;
+
 $db = new Database();
 
 //get informations from user id
