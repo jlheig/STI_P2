@@ -1,17 +1,24 @@
+<?php
+require_once('database.php');
+require_once('authorization.php');
+
+use Messenger\Authorization;
+?>
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container px-4 px-lg-5">
-        <a class="navbar-brand">Kayoumi Doran & Blanc Jean-Luc</a>
-        <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            Menu
-            <i class="fas fa-bars"></i>
-        </button>
+        <a class="navbar-brand">Secure Messenger</a>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.php">Login</a></li>
-                <li class="nav-item"><a class="nav-link" href="mailbox.php">Mail Box</a></li>
-                <li class="nav-item"><a class="nav-link" href="admin.php">Admin Panel</a></li>
-                <li class="nav-item"><a class="nav-link" href="writeMail.php">Write Email</a></li>
+                <?php if (!Authorization::checkSession()): ?>
+                    <li class="nav-item"><a class="nav-link" href="index.php">Login</a></li>
+                <?php else: ?>
+                    <li class="nav-item"><a class="nav-link" href="mailbox.php">Mail Box</a></li>
+                    <li class="nav-item"><a class="nav-link" href="writeMail.php">Write Email</a></li>
+                    <?php if (Authorization::access(Authorization::ADMIN)): ?>
+                        <li class="nav-item"><a class="nav-link" href="admin.php">Admin Panel</a></li>
+                    <?php endif; ?>
+                <?php endif; ?>
             </ul>
         </div>
     </div>
