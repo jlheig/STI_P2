@@ -1,0 +1,22 @@
+
+.masthead {
+    background: #F7F7F5;
+}
+
+#mainNav {
+    background-color: #fdbb28;
+}
+
+#mainNav .container {
+    padding: 0;
+}
+
+#mainNav .navbar-brand,
+#mainNav .nav-link {
+    color: #2c3034;
+}
+
+#mainNav .nav-link:hover {
+    text-decoration: underline;
+    transition: .1ms;
+}
