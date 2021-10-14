@@ -5,8 +5,13 @@ ini_set('display_errors', 1);
 error_reporting(-1);
 
 require_once('database.php');
+require_once('authorization.php')
 
 use Messenger\Database;
+use Messenger\Authorization;
+
+if (!Authorization::access(Authorization::ADMIN))
+    Authorization::redirect();
 
 $db = new Database();
 
@@ -49,39 +54,36 @@ require_once('includes/header.php');
 ?>
 <!-- Navigation-->
 <?php include 'includes/nav.php' ?>
-<!-- Masthead-->
-<header class="masthead">
-    <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-        <div class="d-flex justify-content-center">
-            <div class="text-center">
-                <!-- TODO -->
-                <section class="projects-section bg-light" id="login">
-                    <form action="/modifyUser.php?id=<?php if(isset($id_user)) { echo $id_user; } ?>" method="post">
-                        <label for="username"><b>Username</b></label>
-                        <input type="text" value="<?php if(isset($username)) { echo $username; } ?>" name="username" required readonly>
 
-                        <label for="pwd"><b>Password</b></label>
-                        <input type="text" name="pwd" placeholder="Enter new password here">
+<main class="main is-visible" data-dropzone-area="">
+    <div class="container">
+        <div class="row align-items-center justify-content-center min-vh-100 gx-0">
 
-                        <label for="active"><b>State</b></label>
-                        <select name="active" required>
-                            <option <?php if(isset($state) && $state) { echo "selected"; } ?> value="activated">Activated</option>
-                            <option <?php if(isset($state) && !$state) { echo "selected"; } ?> value="deactivated">Deactivated</option>
-                        </select>
+            <form class="row g-6" action="/modifyUser.php?id=<?php if(isset($id_user)) { echo $id_user; } ?>" method="post">
+                <div class="form-floating">
+                    <input name="username" type="text" class="form-control" id="username" value="<?php if(isset($username)) { echo $username; } ?>" placeholder="Username" required readonly>
+                    <label for="username">Username</label>
+                </div>
 
-                        <label for="role"><b>Role</b></label>
-                        <select name="role" required>
-                            <option <?php if(isset($role) && $role != "admin") { echo "selected"; } ?> value="user">User</option>
-                            <option <?php if(isset($role) && $role == "admin") { echo "selected"; } ?> value="admin">Admin</option>
-                        </select>
+                <label for="active"><b>State</b></label>
+                <select class="form-control" name="active" required>
+                    <option <?php if(isset($state) && $state) { echo "selected"; } ?> value="activated">Activated</option>
+                    <option <?php if(isset($state) && !$state) { echo "selected"; } ?> value="deactivated">Deactivated</option>
+                </select>
 
-                        <input type="submit" value="Change User">
-                    </form>
-                </section>
-            </div>
-        </div>
+                <label for="role"><b>Role</b></label>
+                <select class="form-control"  name="role" required>
+                    <option <?php if(isset($role) && $role != "admin") { echo "selected"; } ?> value="user">User</option>
+                    <option <?php if(isset($role) && $role == "admin") { echo "selected"; } ?> value="admin">Admin</option>
+                </select>
+
+                <div class="col-12">
+                    <button class="btn btn-block btn-lg btn-primary w-100" type="submit">Change Use</button>
+                </div>
+            </form>
+        </div> <!-- / .row -->
     </div>
-</header>
-        
+</main>
+
 <?php
 require_once('includes/footer.php');

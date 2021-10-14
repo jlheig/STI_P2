@@ -41,8 +41,7 @@ require_once('includes/header.php');
                             <td><?= $user['active'] == '1' ? 'Active' : 'Inactive' ?></td>
                             <td><?= $user['role'] ?></td>
                             <td>
-                                <a href="">Delete</a>
-                                <a href="modifyUser.php">Modify</a>
+                                <a href="modifyUser.php?id=<?= $user['id'] ?>">Modify</a>
                             </td>
                         </tr>
                         <?php endforeach; ?>
