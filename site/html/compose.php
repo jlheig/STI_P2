@@ -64,7 +64,7 @@ require_once('includes/header.php');
                 </div>
 
                 <div class="col-12">
-                    <button class="btn btn-block btn-lg btn-primary w-100" type="submit">Create Account</button>
+                    <button class="btn btn-block btn-lg btn-primary w-100" type="submit">Send new message</button>
                 </div>
             </form>
         </div> <!-- / .row -->
