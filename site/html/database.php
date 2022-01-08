@@ -21,7 +21,9 @@ class Database {
     }
 
     public function find_user_by_username($username) {
-        return $this->conn->query("SELECT * FROM users WHERE username = '{$username}'")->fetchAll();
+        $sth = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
+        $sth->execute(array($username));
+        return $sth->fetchAll();
     }
 
     public function get_users() {
