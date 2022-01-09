@@ -22,6 +22,12 @@ if (!empty($_POST)) {
     if (count($db->find_user_by_username($_POST['username'])) > 0) {
         $errors = "User {$_POST['username']} already exists";
     } else {
+        // CORRECTION: Check if password matches the password policy
+        $pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
+        $preg = preg_match($pattern, $_POST['password'], $matches);
+        if($preg == 0 || $preg == false) {
+            $errors = "Passwords don't respect the policy";
+        }
         // check that both passwords match
         if ($_POST['password'] != $_POST['confirm']) {
             $errors = "Passwords don't match";
