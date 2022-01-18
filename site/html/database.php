@@ -28,7 +28,7 @@ class Database {
         return $this->conn->query("SELECT * FROM users")->fetchAll();
     }
 
-    public function create_user($username, $passwd, $role) {
+    public function create_user($username, $passwd, $role = "employee") {
         $this->conn->exec("INSERT INTO users (username, password, role) VALUES ('$username', '$passwd', '$role')");
     }
 
