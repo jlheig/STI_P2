@@ -51,7 +51,7 @@ if(isset($_POST["username"]) && isset($_POST["active"]) && isset($_POST["role"])
 //allows us to not be forced to modify the password
 if(isset($_POST["pwd"]) && $_POST["pwd"] != ""){
     $m_pwd = $_POST["pwd"];
-    $m_pwd = md5($m_pwd);
+    $m_pwd = password_hash($m_pwd);
     $db->update_password_by_id($id_user, $m_pwd);
 }
 
