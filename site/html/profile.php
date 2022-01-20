@@ -33,7 +33,12 @@ if (!empty($_POST)) {
     if (md5($passwd) != $user['password']) {
         $errors = "Invalid password";
     } else {
-        if ($newpasswd != $confirmpasswd) {
+        $pattern = "#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$#";
+        $preg = preg_match($pattern, $newpasswd);
+        if($preg == 0 || $preg == false) {
+            $errors = "Passwords don't respect the policy";
+        }
+        else if ($newpasswd != $confirmpasswd) {
             $errors = "Passwords don't match";
         } else {
             $db->update_password_by_id($user['id'], md5($newpasswd));
@@ -59,6 +64,8 @@ require_once('includes/header.php');
                 <div class="col-12">
                     <div class="text-center">
                         <h3 class="fw-bold mb-2">Change password</h3>
+                        <p>Your password should contain at least 8 characters</p>
+                        <p>Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character</p>
                     </div>
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger" role="alert">
