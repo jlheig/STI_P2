@@ -85,6 +85,9 @@ require_once('includes/header.php');
                                 <label for="signin-password">Password</label>
                             </div>
                         </div>
+                        
+                        <div class="g-recaptcha" data-sitekey="6LeRlCceAAAAADFSqQlgpwy0JbKMmzoQhH1P4p3c"></div>
+
 
                         <div class="col-12">
                             <button class="btn btn-block btn-lg btn-primary w-100" type="submit">Sign In</button>
