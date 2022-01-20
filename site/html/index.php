@@ -6,10 +6,16 @@ error_reporting(-1);
 require_once('database.php');
 require_once('authorization.php');
 
+
 use Messenger\Authorization;
 use Messenger\Database;
 
 session_start();
+
+include_once __DIR__ .'/libraries/CSRF-Protector-PHP/libs/csrf/csrfprotector.php';
+
+//Initialise CSRFGuard library
+csrfProtector::init();
 
 if (Authorization::checkSession())
     Authorization::redirect('inbox.php');
@@ -26,7 +32,7 @@ if (!empty($_POST)) {
     if (count($result) > 0) {
         // NOTE : not vulnerable to SQL injections because no proper SQL request is being made
         // check if the correct password was given
-        if (md5($_POST['password']) == $result[0]['password']) {
+        if (password_verify($_POST['password'], $result[0]['password'])) {
             // success! redirect to mail box
             $_SESSION['id'] = $result[0]['id'];
             Authorization::redirect('inbox.php');
