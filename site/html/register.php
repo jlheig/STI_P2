@@ -25,13 +25,13 @@ if (!empty($_POST)) {
         $errors = "User {$_POST['username']} already exists";
     } else {
         // CORRECTION: Check if password matches the password policy
-        $pattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$";
-        $preg = preg_match($pattern, $_POST['password'], $matches);
+        $pattern = "#^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$#";
+        $preg = preg_match($pattern, $_POST['password']);
         if($preg == 0 || $preg == false) {
             $errors = "Passwords don't respect the policy";
         }
         // check that both passwords match
-        if ($_POST['password'] != $_POST['confirm']) {
+        else if ($_POST['password'] != $_POST['confirm']) {
             $errors = "Passwords don't match";
         } else {
             $hash = password_hash($_POST['password'], PASSWORD_DEFAULT);
@@ -57,6 +57,8 @@ require_once('includes/header.php');
                         <div class="text-center">
                             <h3 class="fw-bold mb-2">Sign Up</h3>
                             <p>Follow the easy steps</p>
+                            <p>Your password should contain at least 8 characters</p>
+                            <p>Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character</p>
                         </div>
                     </div>
                     <?php if (!empty($errors)): ?>
