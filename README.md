@@ -22,8 +22,8 @@ $ docker-compose up -d
 
 #### Available users
 
-| User      | Password    | Role     | Active |
-| --------- | ----------- | -------- | ------ |
-| root      | root        | admin    | yes    |
-| dany      | dany        | employee | yes    |
-| zebra     | zebra       | admin    | no     |
+| User  | Password | Role     | Active |
+| ----- | -------- | -------- | ------ |
+| Admin | root     | admin    | yes    |
+| Jin   | 1234     | employee | yes    |
+| Erso  | 4321     | employee | no     |
