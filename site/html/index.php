@@ -104,46 +104,6 @@ require_once('includes/header.php');
     </div> <!-- / .row -->
 </div>
 
-<!--
-<section class="vh-100">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
-        <div class="card shadow-2-strong">
-          <div class="card-body p-5">
 
-            <h3 class="mb-5">Sign in</h3>
-            <?php if (!empty($errors)): ?>
-            <div class="alert alert-danger" role="alert">
-                <?= $errors ?>
-            </div>
-            <?php endif; ?>
-            <?php if (!empty($_GET['success'])): ?>
-              <div class="alert alert-success" role="alert">
-                  Your account was successfully created!
-              </div>
-            <?php endif; ?>
-            <form action="index.php" method="post">
-                <div class="form-outline mb-4">
-                    <input name="username" type="text" id="username" class="form-control form-control-lg" />
-                    <label class="form-label" for="username">Username</label>
-                </div>
-
-                <div class="form-outline mb-4">
-                    <input name="password" type="password" id="password" class="form-control form-control-lg" />
-                    <label class="form-label" for="password">Password</label>
-                </div>
-
-                <button name="login" class="btn btn-primary btn-lg btn-block" type="submit">Login</button>
-            </form>
-            <hr class="my-4">
-            <p class="mb-0">Don't have an account? <a href="register.php" class="text-dark fw-bold">Sign Up</a></p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
--->
 <?php
 require_once('includes/footer.php');
