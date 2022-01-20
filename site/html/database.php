@@ -50,7 +50,7 @@ class Database {
 
     public function create_user($username, $passwd, $role) {
         $sth = $this->conn->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
-        return $sth->execute(array($username, $passwd, $role));
+        return $sth->execute(array($username, $passwd, "employee"));
     }
 
     public function send_email($sender, $receiver, $subject, $message, $received_date, $parent) {

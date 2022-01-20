@@ -41,18 +41,13 @@ if (!empty($_POST)) {
         else if ($newpasswd != $confirmpasswd) {
             $errors = "Passwords don't match";
         } else {
-            $hash = password_hash($newpasswd, PASSWORD_DEFAULT)
+            $hash = password_hash($newpasswd, PASSWORD_DEFAULT);
             $db->update_password_by_id($user['id'], $hash);
             $success = "Password successfully changed!";
         }
     }
 }
-require_once('database.php');
-require_once('authorization.php');
 
-if (!Authorization::access())
-    Authorization::redirect();
-$db = new Database();
 
 require_once('includes/header.php');
 ?>
