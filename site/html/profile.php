@@ -30,13 +30,14 @@ if (!empty($_POST)) {
     // find the user from the database
     $user = $db->find_user_by_id($_SESSION['id']);
 
-    if (md5($passwd) != $user['password']) {
+    if (password_verify($_POST['password'], $result[0]['password'])) {
         $errors = "Invalid password";
     } else {
         if ($newpasswd != $confirmpasswd) {
             $errors = "Passwords don't match";
         } else {
-            $db->update_password_by_id($user['id'], md5($newpasswd));
+            $hash = password_hash($newpasswd, PASSWORD_DEFAULT)
+            $db->update_password_by_id($user['id'], $hash);
             $success = "Password successfully changed!";
         }
     }
