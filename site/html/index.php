@@ -6,10 +6,16 @@ error_reporting(-1);
 require_once('database.php');
 require_once('authorization.php');
 
+
 use Messenger\Authorization;
 use Messenger\Database;
 
 session_start();
+
+include_once __DIR__ .'/libraries/CSRF-Protector-PHP/libs/csrf/csrfprotector.php';
+
+//Initialise CSRFGuard library
+csrfProtector::init();
 
 if (Authorization::checkSession())
     Authorization::redirect('inbox.php');
@@ -23,17 +29,17 @@ if (!empty($_POST)) {
     // check if the user exists
     if (count($result) > 0) {
         // check if the correct password was given
-        if (md5($_POST['password']) == $result[0]['password']) {
+        if (password_verify($_POST['password'], $result[0]['password'])) {
             // success! redirect to mail box
             $_SESSION['id'] = $result[0]['id'];
             Authorization::redirect('inbox.php');
         } else {
             // password mismatch :sadcat:
-            $errors = "Wrong password";
+            $errors = "Error, credentials don't match";
         }
     } else {
         // nope, new error
-        $errors = "User {$_POST['username']} doesn't exist";
+        $errors = "Error, credentials don't match";
     }
 }
 
