@@ -23,23 +23,26 @@ if (Authorization::checkSession())
 if (!empty($_POST)) {
     $db = new Database();
 
-    // find the user from the database
-    $result = $db->find_user_by_username($_POST['username']);
+    // find the user from the database  -> VULNERABILITY SQL injections
+    // CORRECTION : escaping de l'input dans database.php
+    $result = $db->find_user_by_username($_POST['username']); 
+
 
     // check if the user exists
     if (count($result) > 0) {
+        // NOTE : not vulnerable to SQL injections because no proper SQL request is being made
         // check if the correct password was given
         if (password_verify($_POST['password'], $result[0]['password'])) {
             // success! redirect to mail box
             $_SESSION['id'] = $result[0]['id'];
             Authorization::redirect('inbox.php');
         } else {
-            // password mismatch :sadcat:
-            $errors = "Error, credentials don't match";
+            // CORRECTION : same error message
+            $errors = "Wrong credentials";
         }
     } else {
-        // nope, new error
-        $errors = "Error, credentials don't match";
+        // CORRECTION : same error message
+        $errors = "Wrong credentials";
     }
 }
 
